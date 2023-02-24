@@ -41,6 +41,7 @@ class Actor {
     virtual void apply_damage(int enemy_damage) {
         health -= enemy_damage;
     }
+
     int get_health() const {
         return health;
     }
@@ -79,8 +80,9 @@ class Hero : public Actor {
         damage = 5;
         damageDealt = damage + power;
     }
-    void set_speed(int new_speed) override {
-        speed = new_speed;
+
+    void set_power(int new_power) override {
+        power = new_power + adrenaline;
     }
     void set_health(int new_health) override {
         health = 10 + new_health + goodIntent;
@@ -254,9 +256,6 @@ class Ninja : public Hero {
         damageDealt = damage*knifeSkills + power;
     }
 
-    void set_speed(int new_speed) override{
-        speed = quickness + adrenaline + new_speed;
-    }
     void apply_damage(int enemy_damage) override {
         health -= enemy_damage;
     }
@@ -313,9 +312,6 @@ class Trainer : public Hero {
         damageDealt = damage + power;
     }
 
-    void set_power(int new_power) override {
-        power = muscles + new_power;
-    }
     void set_health(int new_health) override {
         health = 10 + new_health + goodIntent + workout;
     }
@@ -347,9 +343,6 @@ class Chef : public Hero {
         damageDealt = damage*knifeSkills + power;
     }
 
-    void set_speed(int new_speed) override{
-        speed = adrenaline + new_speed;
-    }
     void apply_damage(int enemy_damage) override {
         int damageDifference = enemy_damage - serverShield;
         if (damageDifference > 0 && serverShield > 0){
